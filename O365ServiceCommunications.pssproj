@@ -34,7 +34,7 @@
   <ItemGroup>
     <Compile Include="Scripts\Private\Config.ps1" />
     <Compile Include="Scripts\Public\Get-Event.ps1" />
-    <Compile Include="Scripts\Public\GetTenantEvent.ps1" />
+    <Compile Include="Scripts\Public\Get-TenantEvent.ps1" />
     <Compile Include="Scripts\Public\New-Session.ps1" />
     <Compile Include="Scripts\Public\Get-ServiceInfo.ps1" />
     <Compile Include="O365ServiceCommunications.psd1" />
