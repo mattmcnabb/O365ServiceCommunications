@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-16"?>
+<Configuration>
+<ViewDefinitions>
+  <View>
+    <Name>EventTable</Name>
+    <ViewSelectedBy>
+		<TypeName>O365ServiceCommunications.Event</TypeName>
+	</ViewSelectedBy>
+    <TableControl>
+	<TableHeaders>
+        <TableColumnHeader>
+		  <Label>StartTime</Label>
+        </TableColumnHeader>
+        <TableColumnHeader>
+		  <Label>EndTime</Label>
+        </TableColumnHeader>
+		<TableColumnHeader>
+		  <Label>ID</Label>
+        </TableColumnHeader>
+		<TableColumnHeader>
+		  <Label>EventType</Label>
+        </TableColumnHeader>
+		<TableColumnHeader>
+		  <Label>Service</Label>
+        </TableColumnHeader>
+		<TableColumnHeader>
+		  <Label>Status</Label>
+        </TableColumnHeader>
+      </TableHeaders>
+	  
+      <TableRowEntries>
+        <TableRowEntry>
+          <TableColumnItems>
+
+            <TableColumnItem>
+              <PropertyName>StartTime</PropertyName>
+            </TableColumnItem>
+
+            <TableColumnItem>
+              <PropertyName>EndTime</PropertyName>
+            </TableColumnItem>
+
+			<TableColumnItem>
+              <PropertyName>ID</PropertyName>
+            </TableColumnItem>
+
+			<TableColumnItem>
+              <PropertyName>EventType</PropertyName>
+            </TableColumnItem>
+
+			<TableColumnItem>
+			<ScriptBlock>$_.affectedservicehealthstatus.servicename</ScriptBlock>
+            </TableColumnItem>
+
+			<TableColumnItem>
+              <PropertyName>Status</PropertyName>
+            </TableColumnItem>
+
+          </TableColumnItems>
+        </TableRowEntry>
+      </TableRowEntries>
+	</TableControl>
+  </View>
+  <!--<View>
+    <Name>NameOfView</Name>
+    <ViewSelectedBy>...</ViewSelectedBy>
+    <ListControl>...</ListControl>
+  <View>
+  <View>
+    <Name>NameOfView</Name>
+    <ViewSelectedBy>...</ViewSelectedBy>
+    <WideControl>...</WideControl>
+  <View>
+  <View>
+    <Name>NameOfView</Name>
+    <ViewSelectedBy>...</ViewSelectedBy>
+    <CustomControl>...</CustomControl>
+  </View>-->
+</ViewDefinitions>
+</Configuration>

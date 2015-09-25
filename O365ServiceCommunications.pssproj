@@ -27,6 +27,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="Formats\" />
     <Folder Include="Scripts\" />
     <Folder Include="Scripts\Private\" />
     <Folder Include="Scripts\Public\" />
@@ -40,6 +41,12 @@
     <Compile Include="O365ServiceCommunications.psd1" />
     <Compile Include="O365ServiceCommunications.psm1" />
     <Compile Include="O365ServiceCommunications.tests.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Formats\Event.xml" />
+    <Content Include="Formats\ServiceInfo.xml" />
+    <Content Include="Formats\Session.xml" />
+    <Content Include="Formats\TenantEvent.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="Build" />
