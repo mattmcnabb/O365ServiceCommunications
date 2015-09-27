@@ -17,46 +17,36 @@ function Get-Event
         $PastDays
     )
 
+	# table of possibe event types
     $EventCodes = @{
         'Incident'    = 0
         'Maintenance' = 1
         'Message'     = 2
     }
 
-    $Body = [ordered]@{
-        lastCookie = $SCSession.Cookie
-        locale     = $SCSession.Locale
-        preferredEventTypes = $null
-        pastDays   = $PastDays
+	# this is the body of the JSON request that will be passed to the API
+    $Body = @{
+        lastCookie          = $SCSession.Cookie
+        locale              = $SCSession.Locale
+        preferredEventTypes = @()
+        pastDays            = $PastDays
     }
 
     $Splat = @{
         ContentType = 'application/json'
         Method      = 'Post'
         Uri         = 'https://api.admin.microsoftonline.com/shdtenantcommunications.svc/GetEvents'
-        Body        = @()
+        Body        = $null
     }
 
+	# request the events one event type at a time
+	# this makes it possible to add the event type property to the output
     foreach ($EventType in $EventTypes)
     {
-        $Body.preferredEventTypes = @([int]$EventCodes.$EventType)
+        $Body.preferredEventTypes = @($EventCodes.$EventType)
         $Splat.Body = $Body | ConvertTo-Json
 
-        foreach ($Object in (Invoke-RestMethod @Splat | Select-Object -ExpandProperty Events))
-        {
-            [PSCustomObject]@{
-                PSTypeName                  = $EventTypeName
-                EventType                   = $EventType
-                AffectedServiceHealthStatus = $Object.AffectedServiceHealthStatus
-                AffectedTenantCount         = $Object.AffectedTenantCount
-                EndTime                     = $Object.EndTime
-                Id                          = $Object.Id
-                LastUpdatedTime             = $Object.LastUpdatedTime
-                Messages                    = $Object.Messages
-                StartTime                   = $Object.StartTime
-                Status                      = $Object.Status
-                Title                       = $Object.Title
-            }
-        }
+		Invoke-RestMethod @Splat | Select-Object -ExpandProperty Events |
+		New-CustomObject -Typename $EventTypeName -ExtraProperties @{EventType = $EventType}
     }
 }
