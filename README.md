@@ -29,4 +29,4 @@ Formatting
 I have started with the basic table formatting of the Event type. This will need to be fleshed out to include all format types for each custom object type (16 possible formats in all).
 
 Comment-Based Help
-Or June B. will be angry :Wink:
+Or June B. will be angry ;)
