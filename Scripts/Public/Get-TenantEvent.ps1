@@ -57,5 +57,4 @@ function Get-TenantEvent
 			New-CustomObject -Typename $EventTypeName -ExtraProperties @{EventType = $EventType; TenantDomain = $Domain}
 		}
 	}
-    
 }
