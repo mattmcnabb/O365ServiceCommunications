@@ -1,10 +1,21 @@
 # O365ServiceCommunications
-A Powershell module for retrieving data from the Office 365 Service Communications API
+A Powershell module for retrieving data from the Office 365 Service Communications API. This could be used for reporting the health status of your tenant over time, or for alerting when new incidents are posted.
 
-API overview here
+###Getting Started
+You'll need to be a global administrator for an Office 365 Tenant, or a delegated partner for an Office 365 tenant. You can create a session by running:
+```Powershell
+$Cred = Get-Credential
+$Session = New-SCSession -Credential $Cred
+```
+To collect events from the API, use the Get-SCEvent function:
+```Powershell
+Get-SCEvent -SCSession $Session -EventTypes Incident,Maintenance,Message -PastDays 10
+```
+
+###API overview here
 https://msdn.microsoft.com/en-us/library/office/dn776043.aspx
 
-Code Samples here
+###API Code Samples here
 https://www.microsoft.com/en-us/download/details.aspx?id=44012
 
 ###What's currently working
