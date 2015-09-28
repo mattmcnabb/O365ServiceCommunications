@@ -1,5 +1,35 @@
 function Get-Event
 {
+	<#
+		.SYNOPSIS
+		Returns events from the Service Communications API.
+		.DESCRIPTION
+		Returns events from the Service Communications API. These events can be Incidents, Maintenance messages, or just 
+		informational messages.
+		.PARAMETER EventTypes
+		Specifies the types of events that you would like to gather information for. Valid values are:
+		Incident
+		Maintenance
+		Message
+		.PARAMETER SCSession
+		Specifies the Service Communications session to retrieve events for. These sessions are created using the 
+		New-SCSession function.
+		.PARAMETER PastDays
+		Specifies the past number of days to return events for.
+		.EXAMPLE
+		$O365Admin = Get-Credential
+		$Session = New-SCSession -Credential $O365Admin
+		Get-SCEvent -EventTypes Incident,Maintenance,Message -PastDays 10 -SCSession $Session
+		Initiate a session to the Service Communications API and then return all events for the past 10 days.
+		.EXAMPLE
+		Get-SCEvent -EventTypes Incident -SCSession $Session
+		Retrieve only Incident events.
+		.OUTPUTS
+		O365ServiceCommunications.Event
+        .LINK
+        https://msdn.microsoft.com/en-us/library/office/dn776043.aspx
+    #>
+
     [CmdletBinding()]
     param
     (
