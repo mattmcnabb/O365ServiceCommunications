@@ -18,10 +18,12 @@ https://msdn.microsoft.com/en-us/library/office/dn776043.aspx
 ###API Code Samples here
 https://www.microsoft.com/en-us/download/details.aspx?id=44012
 
-###What's currently working
-New-SCSession
-Get-Event
-Get-ServiceInfo
+###Functions completed
+- [x] New-SCSession
+- [x] Get-Event
+- [x] Get-ServiceInfo
+- [ ] Get-TenantEvent
+- [ ] Get-TenantServiceInfo
 
 ###To-Dos
 ####There are currently 4 areas that need the most work
