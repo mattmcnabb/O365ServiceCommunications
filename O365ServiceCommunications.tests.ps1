@@ -26,7 +26,7 @@ Describe "Manifest" {
     }
 
 	It 'processes all existing format files' {
-		$FormatFiles = Get-ChildItem "$ModulePath\Formats\" -Filter *.xml | select -ExpandProperty fullname
+		$FormatFiles = Get-ChildItem "$ModulePath\Formats\" -Filter *.ps1xml | select -ExpandProperty fullname
 		$Script:Manifest.ExportedFormatFiles | Should Be $FormatFiles
 	}
 
