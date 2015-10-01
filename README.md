@@ -26,7 +26,7 @@ https://www.microsoft.com/en-us/download/details.aspx?id=44012
 - [ ] Get-TenantServiceInfo
 
 ###To-Dos
-####There are currently 4 areas that need the most work
+####There are currently 3 areas that need the most work
 
 #####Partner administration functions
 These are Get-TenantEvent and Get-TenantServiceInfo
@@ -37,6 +37,3 @@ I am currently looking at strategies for testing these functions so please feel 
 
 #####Error Handling
 Some error handling may be needed to return helpful exceptions based on web request errors returned. These return codes are detailed in the API Overview
-
-#####Formatting
-I have started with the basic table formatting of the Event type. This will need to be fleshed out to include all format types for each custom object type (16 possible formats in all).
