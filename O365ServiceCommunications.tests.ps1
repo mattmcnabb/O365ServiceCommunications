@@ -13,17 +13,33 @@ Describe "Manifest" {
         } | Should Not Throw
     }
 
-    It "has a valid name in the manifest" {
+    It "has a valid name" {
         $Script:Manifest.Name | Should Be $ModuleName
     }
 
-    It "has a valid guid in the manifest" {
+	It "has a valid root module" {
+        $Script:Manifest.RootModule | Should Be "$ModuleName.psm1"
+    }
+
+	It "has a valid Description" {
+        $Script:Manifest.Description | Should Not BeNullOrEmpty
+    }
+
+    It "has a valid guid" {
         $Script:Manifest.Guid | Should Be 'bd4390dc-a8ad-4bce-8d69-f53ccf8e4163'
     }
 
-    It "has a valid version in the manifest" {
+    It "has a valid version" {
         $Script:Manifest.Version -as [Version] | Should Not BeNullOrEmpty
     }
+
+	It "has a valid prefix" {
+		$Script:Manifest.Prefix | Should Not BeNullOrEmpty
+	}
+
+	It "has a valid copyright" {
+		$Script:Manifest.CopyRight | Should Not BeNullOrEmpty
+	}
 
 	It 'processes all existing format files' {
 		$FormatFiles = Get-ChildItem "$ModulePath\Formats\" -Filter *.ps1xml | select -ExpandProperty fullname
@@ -38,8 +54,18 @@ Describe "Manifest" {
 }
 
 # test the functions inside the module
-#describe 'Module' {
-#	InModuleScope O365ServiceCommunications {
-#		It ''
-#	}
-#}
+Describe 'Module' {
+	InModuleScope O365ServiceCommunications {
+		
+		# Mock Invoke-RestMethod and pass a fake credential
+		It 'should output a session object' {
+			$TestCred = New-Object System.Management.Automation.PSCredential ('testUser', (ConvertTo-SecureString '1234abcD' -AsPlainText -Force))
+			$CookieText = 'qwertyuiopasdfghjkl;'
+			Mock Invoke-RestMethod {[pscustomobject]@{RegistrationCookie = $CookieText}}
+			$Result = New-SCSession -Credential $TestCred
+			$Result.PsObject.TypeNames[0] | Should Be $SessionTypeName
+		}
+
+
+	}
+}

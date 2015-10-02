@@ -42,8 +42,9 @@ function New-Session
 
 
     $BodyCred = @{
-        userName=$Credential.username
-        password=$Credential.GetNetworkCredential().password
+        userName = $Credential.UserName
+        password = $Credential.GetNetworkCredential().password
+		locale   = $Locale
     } | ConvertTo-Json
 
     $Splat = @{
