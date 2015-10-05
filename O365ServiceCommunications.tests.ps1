@@ -56,15 +56,19 @@ Describe "Manifest" {
 # test the functions inside the module
 Describe 'Module' {
 	InModuleScope O365ServiceCommunications {
-		
-		# Mock Invoke-RestMethod and pass a fake credential
-		It 'should output a session object' {
-			$TestCred = New-Object System.Management.Automation.PSCredential ('testUser', (ConvertTo-SecureString '1234abcD' -AsPlainText -Force))
-			$CookieText = 'qwertyuiopasdfghjkl;'
-			Mock Invoke-RestMethod {[pscustomobject]@{RegistrationCookie = $CookieText}}
-			$Result = New-SCSession -Credential $TestCred
-			$Result.PsObject.TypeNames[0] | Should Be $SessionTypeName
+		Context 'New-Session'{
+			BeforeEach {
+				$TestCred = New-Object System.Management.Automation.PSCredential ('testUser', (ConvertTo-SecureString '1234abcD' -AsPlainText -Force))
+				$CookieText = 'qwertyuiopasdfghjkl;'
+			}
+
+			It 'should output a session object' {
+				Mock Invoke-RestMethod {[pscustomobject]@{RegistrationCookie = $CookieText}}
+				$Result = New-SCSession -Credential $TestCred
+				$Result.PsObject.TypeNames[0] | Should Be $SessionTypeName
+			}
 		}
+		
 
 
 	}
