@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>6CAFC0C6-A428-4d30-A9F9-700E829FEA51</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>MyApplication</RootNamespace>
+    <AssemblyName>MyApplication</AssemblyName>
+    <Name>O365ServiceCommunications</Name>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Formats\" />
+    <Folder Include="Scripts\" />
+    <Folder Include="Scripts\Private\" />
+    <Folder Include="Scripts\Public\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Scripts\Private\Config.ps1" />
+    <Compile Include="Scripts\Private\New-CustomObject.ps1" />
+    <Compile Include="Scripts\Public\Get-Event.ps1" />
+    <Compile Include="Scripts\Public\Get-TenantEvent.ps1" />
+    <Compile Include="Scripts\Public\Get-TenantServiceInfo.ps1" />
+    <Compile Include="Scripts\Public\New-Session.ps1" />
+    <Compile Include="Scripts\Public\Get-ServiceInfo.ps1" />
+    <Compile Include="O365ServiceCommunications.psd1" />
+    <Compile Include="O365ServiceCommunications.psm1" />
+    <Compile Include="O365ServiceCommunications.tests.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Formats\Event.format.ps1xml" />
+    <Content Include="Formats\TenantEvent.format.ps1xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Target Name="Build" />
+</Project>
