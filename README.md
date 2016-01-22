@@ -20,20 +20,24 @@ https://www.microsoft.com/en-us/download/details.aspx?id=44012
 
 ###Functions completed
 - [x] New-SCSession
-- [x] Get-Event
-- [x] Get-ServiceInfo
-- [ ] Get-TenantEvent
-- [ ] Get-TenantServiceInfo
+- [x] Get-SCEvent
+- [x] Get-SCServiceInfo
+- [ ] Get-SCTenantEvent
+- [ ] Get-SCTenantServiceInfo
 
 ###To-Dos
 ####There are currently 3 areas that need the most work
 
 #####Partner administration functions
-These are Get-TenantEvent and Get-TenantServiceInfo
-I am unable to test in this scenario because I don't administer a partner Office 365 tenant domain. If anyone has this type of administrative relationship and would like to test the module please let me know. Also, please feel free to submit a pull request for any tweaks to these functions.
+These are Get-TenantEvent and Get-TenantServiceInfo. I am unable to test in this scenario because I don't administer a partner Office 365 tenant domain. If anyone has this type of administrative relationship and would like to test the module please let me know. Also, please feel free to submit a pull request for any tweaks to these functions.
 
 #####Pester Tests
 I am currently looking at strategies for testing these functions so please feel free to add content in this area.
 
 #####Error Handling
 Some error handling may be needed to return helpful exceptions based on web request errors returned. These return codes are detailed in the API Overview
+
+#####Version History
+0.3 - Expanded tests; Added default value to -PastDays parameter of Get-SCEvent
+0.2 - Completed New-SCSession, Get-SCEvent, and Get-SCServiceInfo; Added some custom formatting and basic module tests
+0.1 - Initial working version
