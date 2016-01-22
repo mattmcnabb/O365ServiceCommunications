@@ -47,7 +47,7 @@ Describe "Manifest" {
 	}
 
 	It 'exports all public functions' {
-		$FunctionFiles = Get-ChildItem "$ModulePath\Scripts\Public" -Filter *.ps1 | select -ExpandProperty basename
+		$FunctionFiles = Get-ChildItem "$ModulePath\functions" -Filter *.ps1 | select -ExpandProperty basename
 		$FunctionNames = $FunctionFiles | foreach {$_ -replace '-', "-$($Script:Manifest.Prefix)"}
 		$Script:Manifest.ExportedFunctions.Values.Name | Should Be $FunctionNames
 	}
