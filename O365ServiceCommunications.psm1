@@ -1,12 +1,8 @@
-$PublicScripts = Get-ChildItem -Path "$PSScriptRoot\Scripts\Public" -File -Filter *.ps1
-$PrivateScripts = Get-ChildItem -Path "$PSScriptRoot\Scripts\Private" -File -Filter *.ps1
+$Functions = Get-ChildItem -Path "$PSScriptRoot\functions" -File -Filter *.ps1
+$Helpers = Get-ChildItem -Path "$PSScriptRoot\helpers" -File -Filter *.ps1
 
 
-foreach ($Script in ($PublicScripts + $PrivateScripts))
+foreach ($Script in ($Functions + $Helpers))
 {
-	. $Script.FullName
+    . $Script.FullName
 }
-
-$Commands = $PublicScripts.BaseName
-
-Export-ModuleMember -Function $Commands
