@@ -11,7 +11,7 @@ function New-CustomObject
 		$ExtraProperties,
 
 		[Parameter()]
-		[System.String]
+		[System.String[]]
 		$ExcludedProperties,
 
 		[Parameter()]
