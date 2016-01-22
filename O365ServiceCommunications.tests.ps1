@@ -55,21 +55,65 @@ Describe "Manifest" {
 
 # test the functions inside the module
 Describe 'Module' {
-	InModuleScope O365ServiceCommunications {
-		Context 'New-Session'{
-			BeforeEach {
-				$TestCred = New-Object System.Management.Automation.PSCredential ('testUser', (ConvertTo-SecureString '1234abcD' -AsPlainText -Force))
-				$CookieText = 'qwertyuiopasdfghjkl;'
-			}
+    InModuleScope O365ServiceCommunications {
+        Context 'New-CustomObject' {
+            BeforeEach {
+                $InputObject = [PSCustomObject]@{
+                    Property1 = 1
+                    Property2 = 'two'
+                    Property3 = @{hash = 'table'}
+                    Property4 = @(4,'four')
+                }
+                $TypeName = 'Custom'
+            }
+            
+            It 'sets typename' {
+                $Object = $InputObject | New-CustomObject -TypeName $TypeName
+                $Object.PSObject.TypeNames[0] | Should be $TypeName
+            }
+            
+            It 'adds properties' {
+                $Properties = @{Property5 = 5; Property6 = 'six'}
+                $Object = $InputObject | New-CustomObject -TypeName $TypeName -ExtraProperties $Properties
+                $Object.PSObject.Properties.Name -contains 'Property5' | Should Be $true
+                $Object.PSObject.Properties.Name -contains 'Property6' | Should Be $true
+            }
+            
+            It 'excludes properties' {
+                $Object = $InputObject | New-CustomObject -TypeName $TypeName -ExcludedProperties 'Property4','Property3'
+                $Object.PSObject.Properties.Name -notcontains 'Property3' | Should Be $true
+                $Object.PSObject.Properties.Name -notcontains 'Property4' | Should Be $true
+            }
+            
+            It 'outputs all properties' {
+                $Object = $InputObject | New-CustomObject -TypeName $TypeName
+                $Object.PSObject.Properties.Name.Count | Should Be 4
+            }
+            
+            It 'outputs correct property values' {
+                $Object = $InputObject | New-CustomObject -TypeName $TypeName
+                $Object.Property1 | Should Be 1
+                $Object.Property2 | Should BeExactly 'two'
+            }
+            
+            It 'outputs correct property value types' {
+                $Object = $InputObject | New-CustomObject -TypeName $TypeName
+                $Object.Property3.GetType().FullName | Should Be 'System.Collections.Hashtable'
+                $Object.Property4.GetType().BaseType.FullName | Should Be 'System.Array'
+            }
+        }
 
-			It 'should output a session object' {
-				Mock Invoke-RestMethod {[pscustomobject]@{RegistrationCookie = $CookieText}}
-				$Result = New-SCSession -Credential $TestCred
-				$Result.PsObject.TypeNames[0] | Should Be $SessionTypeName
-			}
-		}
-		
+        Context 'New-Session'{
+            BeforeEach {
+                $TestCred = New-Object System.Management.Automation.PSCredential ('testUser', (ConvertTo-SecureString '1234abcD' -AsPlainText -Force))
+                $CookieText = 'qwertyuiopasdfghjkl;'
+            }
 
-
-	}
+            It 'should output a session object' {
+                Mock Invoke-RestMethod {[pscustomobject]@{RegistrationCookie = $CookieText}}
+                $Result = New-SCSession -Credential $TestCred
+                $Result.PsObject.TypeNames[0] | Should Be $SessionTypeName
+            }
+        }
+    }
 }
