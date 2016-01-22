@@ -15,7 +15,7 @@ function Get-Event
 		Specifies the Service Communications session to retrieve events for. These sessions are created using the 
 		New-SCSession function.
 		.PARAMETER PastDays
-		Specifies the past number of days to return events for.
+		Specifies the past number of days to return events for. Default value is 7 days.
 		.EXAMPLE
 		$O365Admin = Get-Credential
 		$Session = New-SCSession -Credential $O365Admin
@@ -44,7 +44,7 @@ function Get-Event
 
         [Parameter(Mandatory=$false)]
         [int]
-        $PastDays
+        $PastDays = 7
     )
 
 	# table of possibe event types
