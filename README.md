@@ -24,7 +24,7 @@ Similar to Get-SCEvent, but for partner administrators.
 Similar to Get-SCServiceInfo, but for partner administrators.
 
 ###Please contribute!
-I need help with the Get-TenantEvent and Get-TenantServiceInfo functions. I am unable to test in this scenario because I don't administer a partner Office 365 tenant domain. If anyone has this type of administrative relationship and would like to test the module please let me know. Also, please feel free to submit a pull request for any tweaks to these functions.
+I need help with the Get-TenantEvent and Get-TenantServiceInfo functions. I am unable to test in this scenario because I don't administer a partner Office 365 tenant domain. If anyone has this type of administrative relationship and would like to test the module I would be very grateful. Also, please feel free to submit a pull request for any tweaks to these functions.
 
 ###API Overview
 https://msdn.microsoft.com/en-us/library/office/dn776043.aspx
