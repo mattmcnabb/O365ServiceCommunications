@@ -54,7 +54,7 @@ function Get-TenantEvent
 			$Splat.Body = $Body | ConvertTo-Json
 
 			Invoke-RestMethod @Splat | Select-Object -ExpandProperty Events |
-			New-CustomObject -Typename $EventTypeName -ExtraProperties @{EventType = $EventType; TenantDomain = $Domain}
+			New-CustomObject -Typename $TenantEventTypeName -ExtraProperties @{EventType = $EventType; TenantDomain = $Domain}
 		}
 	}
 }

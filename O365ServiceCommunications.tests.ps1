@@ -169,7 +169,7 @@ Describe 'public functions' {
             It 'outputs an event object' {
                 $Session = New-Session -Credential $TestCred
                 $Result = Get-TenantEvent -SCSession $Session  -Domains domain.com
-                $Result.PSObject.TypeNames[0] | Should Be $EventTypeName
+                $Result.PSObject.TypeNames[0] | Should Be $TenantEventTypeName
             }
         }
     }
