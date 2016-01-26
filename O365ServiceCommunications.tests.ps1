@@ -153,7 +153,7 @@ Describe 'public functions' {
                 Mock Invoke-RestMethod {[PSCustomObject]@{ TenantServiceInfo = 'TenantServiceInfoTest' }}
             }
         
-            It 'outputs an event object' {
+            It 'outputs an service info object' {
                 $Session = New-Session -Credential $TestCred
                 $Result = Get-TenantServiceInfo -SCSession $Session -Domains domain.com
                 $Result.PSObject.TypeNames[0] | Should Be $TenantServiceInfoTypeName
@@ -166,7 +166,7 @@ Describe 'public functions' {
                 Mock Invoke-RestMethod {[PSCustomObject]@{ Events = 'TenantEventTest' }}
             }
         
-            It 'outputs an event object' {
+            It 'outputs a tenant event object' {
                 $Session = New-Session -Credential $TestCred
                 $Result = Get-TenantEvent -SCSession $Session  -Domains domain.com
                 $Result.PSObject.TypeNames[0] | Should Be $TenantEventTypeName
