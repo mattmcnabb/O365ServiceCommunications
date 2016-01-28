@@ -37,9 +37,9 @@ Describe "Manifest" {
         $Script:Manifest.Version -as [Version] | Should Not BeNullOrEmpty
     }
 
-    It "has a valid prefix" {
-        $Script:Manifest.Prefix | Should Not BeNullOrEmpty
-    }
+    #It "has a valid prefix" {
+    #    $Script:Manifest.Prefix | Should Not BeNullOrEmpty
+    #}
 
     It "has a valid copyright" {
         $Script:Manifest.CopyRight | Should Not BeNullOrEmpty
@@ -50,11 +50,11 @@ Describe "Manifest" {
         $Script:Manifest.ExportedFormatFiles | Should Be $FormatFiles
     }
 
-    It 'exports all public functions' {
-        $FunctionFiles = Get-ChildItem "$ModulePath\functions" -Filter *.ps1 | select -ExpandProperty basename
-        $FunctionNames = $FunctionFiles | foreach {$_ -replace '-', "-$($Script:Manifest.Prefix)"}
-        $Script:Manifest.ExportedFunctions.Values.Name | Should Be $FunctionNames
-    }
+    #It 'exports all public functions' {
+    #    $FunctionFiles = Get-ChildItem "$ModulePath\functions" -Filter *.ps1 | select -ExpandProperty basename
+    #    $FunctionNames = $FunctionFiles | foreach {$_ -replace '-', "-$($Script:Manifest.Prefix)"}
+    #    $Script:Manifest.ExportedFunctions.Values.Name | Should Be $FunctionNames
+    #}
 }
 
 # test the functions inside the module
