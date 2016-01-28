@@ -18,7 +18,11 @@ Describe "Manifest" {
     }
 
     It "has a valid root module" {
-        $Script:Manifest.RootModule | Should Be "$ModuleName.psm1"
+        switch ($PSVersionTable.PSVersion.Major)
+        {
+            3 { $Script:Manifest.RootModule | Should Be $null }
+            { $_ -ge 4 } { $Script:Manifest.RootModule | Should Be "$ModuleName.psm1" }
+        }
     }
 
     It "has a valid Description" {
