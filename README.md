@@ -1,3 +1,5 @@
+__Build Status:__ [![Build status](https://build.powershell.org/guestAuth/app/rest/builds/buildType:(id:O365ServiceCommunications_PublishStatusToGitHub)/statusIcon)](https://build.powershell.org/project.html?projectId=O365ServiceCommunications&tab=projectOverview&guest=1)
+
 # O365ServiceCommunications
 A Powershell module for retrieving data from the Office 365 Service Communications API. This could be used for reporting the health status of your tenant over time, or for alerting when new incidents are posted.
 
