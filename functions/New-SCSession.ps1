@@ -1,4 +1,4 @@
-function New-Session
+function New-SCSession
 {
     <#
 		.SYNOPSIS

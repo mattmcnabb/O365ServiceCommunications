@@ -1,4 +1,4 @@
-function Get-ServiceInfo
+function Get-SCServiceInfo
 {
 	<#
 		.SYNOPSIS

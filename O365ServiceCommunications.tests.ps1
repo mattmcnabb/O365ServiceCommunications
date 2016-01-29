@@ -20,7 +20,8 @@ Describe "Manifest" {
     It "has a valid root module" {
         switch ($PSVersionTable.PSVersion.Major)
         {
-            3 { $Script:Manifest.RootModule | Should Be $null }
+            # PS v3.0 doesn't seem to show the RootModule property so we'll allow that to be null
+            3            { $Script:Manifest.RootModule | Should Be $null }
             { $_ -ge 4 } { $Script:Manifest.RootModule | Should Be "$ModuleName.psm1" }
         }
     }
@@ -37,10 +38,6 @@ Describe "Manifest" {
         $Script:Manifest.Version -as [Version] | Should Not BeNullOrEmpty
     }
 
-    It "has a valid prefix" {
-        $Script:Manifest.Prefix | Should Not BeNullOrEmpty
-    }
-
     It "has a valid copyright" {
         $Script:Manifest.CopyRight | Should Not BeNullOrEmpty
     }
@@ -52,7 +49,7 @@ Describe "Manifest" {
 
     It 'exports all public functions' {
         $FunctionFiles = Get-ChildItem "$ModulePath\functions" -Filter *.ps1 | select -ExpandProperty basename
-        $FunctionNames = $FunctionFiles | foreach {$_ -replace '-', "-$($Script:Manifest.Prefix)"}
+        $FunctionNames = $FunctionFiles
         $Script:Manifest.ExportedFunctions.Values.Name | Should Be $FunctionNames
     }
 }
@@ -113,7 +110,7 @@ Describe 'public functions' {
     InModuleScope O365ServiceCommunications {
         $TestCred = New-Object System.Management.Automation.PSCredential ('testUser', (ConvertTo-SecureString '1234abcD' -AsPlainText -Force))
         
-        Context 'New-Session'{
+        Context 'New-SCSession'{
             BeforeEach {
                 $CookieText = 'qwertyuiopasdfghjkl;'
             }
@@ -125,54 +122,54 @@ Describe 'public functions' {
             }
         }
         
-        Context 'Get-ServiceInfo' {
+        Context 'Get-SCServiceInfo' {
             BeforeEach {
-                Mock New-Session { [pscustomobject]@{Cookie = 'qwertyuiopasdfghjkl;'; Locale = 'en-US'} | New-CustomObject -TypeName $SessionTypeName }
+                Mock New-SCSession { [pscustomobject]@{Cookie = 'qwertyuiopasdfghjkl;'; Locale = 'en-US'} | New-CustomObject -TypeName $SessionTypeName }
                 Mock Invoke-RestMethod {[PSCustomObject]@{ ServiceInfo = 'ServiceInfoTest' }}
             }
         
             It 'outputs a service info object' {
-                $Session = New-Session -Credential $TestCred
-                $Result = Get-ServiceInfo -SCSession $Session
+                $Session = New-SCSession -Credential $TestCred
+                $Result = Get-SCServiceInfo -SCSession $Session
                 $Result.PSObject.TypeNames[0] | Should Be $ServiceInfoTypeName
             }
         }
         
-        Context 'Get-Event' {
+        Context 'Get-SCEvent' {
             BeforeEach {
-                Mock New-Session { [pscustomobject]@{Cookie = 'qwertyuiopasdfghjkl;'; Locale = 'en-US'} | New-CustomObject -TypeName $SessionTypeName }
+                Mock New-SCSession { [pscustomobject]@{Cookie = 'qwertyuiopasdfghjkl;'; Locale = 'en-US'} | New-CustomObject -TypeName $SessionTypeName }
                 Mock Invoke-RestMethod {[PSCustomObject]@{ Events = 'EventTest' }}
             }
         
             It 'outputs an event object' {
-                $Session = New-Session -Credential $TestCred
-                $Result = Get-Event -SCSession $Session
+                $Session = New-SCSession -Credential $TestCred
+                $Result = Get-SCEvent -SCSession $Session
                 $Result.PSObject.TypeNames[0] | Should Be $EventTypeName
             }
         }
         
-        Context 'Get-TenantServiceInfo' {
+        Context 'Get-SCTenantServiceInfo' {
             BeforeEach {
-                Mock New-Session { [pscustomobject]@{Cookie = 'qwertyuiopasdfghjkl;'; Locale = 'en-US'} | New-CustomObject -TypeName $SessionTypeName }
+                Mock New-SCSession { [pscustomobject]@{Cookie = 'qwertyuiopasdfghjkl;'; Locale = 'en-US'} | New-CustomObject -TypeName $SessionTypeName }
                 Mock Invoke-RestMethod {[PSCustomObject]@{ TenantServiceInfo = 'TenantServiceInfoTest' }}
             }
         
             It 'outputs an service info object' {
-                $Session = New-Session -Credential $TestCred
-                $Result = Get-TenantServiceInfo -SCSession $Session -Domains domain.com
+                $Session = New-SCSession -Credential $TestCred
+                $Result = Get-SCTenantServiceInfo -SCSession $Session -Domains domain.com
                 $Result.PSObject.TypeNames[0] | Should Be $TenantServiceInfoTypeName
             }
         }
         
-        Context 'Get-TenantEvent' {
+        Context 'Get-SCTenantEvent' {
             BeforeEach {
-                Mock New-Session { [pscustomobject]@{Cookie = 'qwertyuiopasdfghjkl;'; Locale = 'en-US'} | New-CustomObject -TypeName $SessionTypeName }
+                Mock New-SCSession { [pscustomobject]@{Cookie = 'qwertyuiopasdfghjkl;'; Locale = 'en-US'} | New-CustomObject -TypeName $SessionTypeName }
                 Mock Invoke-RestMethod {[PSCustomObject]@{ Events = 'TenantEventTest' }}
             }
         
             It 'outputs a tenant event object' {
-                $Session = New-Session -Credential $TestCred
-                $Result = Get-TenantEvent -SCSession $Session  -Domains domain.com
+                $Session = New-SCSession -Credential $TestCred
+                $Result = Get-SCTenantEvent -SCSession $Session -Domains domain.com
                 $Result.PSObject.TypeNames[0] | Should Be $TenantEventTypeName
             }
         }

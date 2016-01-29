@@ -1,4 +1,4 @@
-function Get-TenantServiceInfo
+function Get-SCTenantServiceInfo
 {
     [CmdletBinding()]
     param

@@ -1,4 +1,4 @@
-function Get-TenantEvent
+function Get-SCTenantEvent
 {
     [CmdletBinding()]
     param

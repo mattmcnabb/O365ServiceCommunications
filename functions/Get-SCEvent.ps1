@@ -1,4 +1,4 @@
-function Get-Event
+function Get-SCEvent
 {
 	<#
 		.SYNOPSIS
