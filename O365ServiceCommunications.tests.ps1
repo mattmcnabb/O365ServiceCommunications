@@ -2,55 +2,55 @@ $ModulePath = Split-Path -Parent $MyInvocation.MyCommand.Path
 $ModuleName = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -Replace ".Tests.ps1"
 
 $ManifestPath   = "$ModulePath\$ModuleName.psd1"
+if (Get-Module -Name $ModuleName) { Remove-Module $ModuleName -Force }
 Import-Module $ManifestPath
 
 # test the module manifest - exports the right functions, processes the right formats, and is generally correct
 Describe "Manifest" {
-    $Manifest = $null
+    
+    $ManifestHash = Invoke-Expression (Get-Content $ManifestPath -Raw)
+
     It "has a valid manifest" {
         {
-            $Script:Manifest = Test-ModuleManifest -Path $ManifestPath -ErrorAction Stop -WarningAction SilentlyContinue
+            $null = Test-ModuleManifest -Path $ManifestPath -ErrorAction Stop -WarningAction SilentlyContinue
         } | Should Not Throw
-    }
-
-    It "has a valid name" {
-        $Script:Manifest.Name | Should Be $ModuleName
     }
 
     It "has a valid root module" {
         switch ($PSVersionTable.PSVersion.Major)
         {
             # PS v3.0 doesn't seem to show the RootModule property so we'll allow that to be null
-            3            { $Script:Manifest.RootModule | Should Be $null }
-            { $_ -ge 4 } { $Script:Manifest.RootModule | Should Be "$ModuleName.psm1" }
+            3            { $ManifestHash.RootModule | Should Be $null }
+            { $_ -ge 4 } { $ManifestHash.RootModule | Should Be "$ModuleName.psm1" }
         }
     }
 
     It "has a valid Description" {
-        $Script:Manifest.Description | Should Not BeNullOrEmpty
+        $ManifestHash.Description | Should Not BeNullOrEmpty
     }
 
     It "has a valid guid" {
-        $Script:Manifest.Guid | Should Be 'bd4390dc-a8ad-4bce-8d69-f53ccf8e4163'
+        $ManifestHash.Guid | Should Be 'bd4390dc-a8ad-4bce-8d69-f53ccf8e4163'
     }
 
     It "has a valid version" {
-        $Script:Manifest.Version -as [Version] | Should Not BeNullOrEmpty
+        $ManifestHash.ModuleVersion -as [Version] | Should Not BeNullOrEmpty
     }
 
     It "has a valid copyright" {
-        $Script:Manifest.CopyRight | Should Not BeNullOrEmpty
+        $ManifestHash.CopyRight | Should Not BeNullOrEmpty
     }
 
     It 'processes all existing format files' {
-        $FormatFiles = Get-ChildItem "$ModulePath\Formats\" -Filter *.ps1xml | select -ExpandProperty fullname
-        $Script:Manifest.ExportedFormatFiles | Should Be $FormatFiles
+        $FormatFiles = Get-ChildItem "$ModulePath\Formats\" -Filter *.ps1xml | Select-Object -ExpandProperty fullname
+        $ExportedFormats = $ManifestHash.FormatsToProcess | foreach {"$ModulePath\$_"}
+        $ExportedFormats | Should Be $FormatFiles
     }
 
     It 'exports all public functions' {
-        $FunctionFiles = Get-ChildItem "$ModulePath\functions" -Filter *.ps1 | select -ExpandProperty basename
+        $FunctionFiles = Get-ChildItem "$ModulePath\functions" -Filter *.ps1 | Select-Object -ExpandProperty basename
         $FunctionNames = $FunctionFiles
-        $Script:Manifest.ExportedFunctions.Values.Name | Should Be $FunctionNames
+        $ManifestHash.FunctionsToExport | Should Be $FunctionNames
     }
 }
 
