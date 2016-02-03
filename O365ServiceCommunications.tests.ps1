@@ -17,12 +17,7 @@ Describe "Manifest" {
     }
 
     It "has a valid root module" {
-        switch ($PSVersionTable.PSVersion.Major)
-        {
-            # PS v3.0 doesn't seem to show the RootModule property so we'll allow that to be null
-            3            { $ManifestHash.RootModule | Should Be $null }
-            { $_ -ge 4 } { $ManifestHash.RootModule | Should Be "$ModuleName.psm1" }
-        }
+        $ManifestHash.RootModule | Should Be "$ModuleName.psm1"
     }
 
     It "has a valid Description" {
