@@ -25,6 +25,9 @@ Similar to Get-SCEvent, but for partner administrators.
 #####Get-SCTenantServiceInfo
 Similar to Get-SCServiceInfo, but for partner administrators.
 
+###How to use it
+Check out the sample folder for a demonstration of using this module to generate an email on current service incidents.
+
 ###API Overview
 https://msdn.microsoft.com/en-us/library/office/dn776043.aspx
 
