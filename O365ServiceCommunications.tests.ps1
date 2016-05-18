@@ -47,6 +47,21 @@ Describe "Manifest" {
         $FunctionNames = $FunctionFiles
         $ManifestHash.FunctionsToExport | Should Be $FunctionNames
     }
+    
+    It 'has a valid license Uri' {
+        $ManifestHash.PrivateData.Values.LicenseUri | Should Be 'http://opensource.org/licenses/MIT'
+    }
+    
+    It 'has a valid project Uri' {
+        $ManifestHash.PrivateData.Values.ProjectUri | Should Be 'https://github.com/mattmcnabb/O365ServiceCommunications'
+    }
+    
+    It "gallery tags don't contain spaces" {
+        foreach ($Tag in $ManifestHash.PrivateData.Values.tags)
+        {
+            $Tag -notmatch '\s' | Should Be $true
+        }
+    }
 }
 
 # test the functions inside the module
