@@ -34,7 +34,7 @@ function Get-SCServiceInfo
     $Splat = @{
         ContentType = 'application/json'
         Method      = 'Post'
-        Uri         = 'https://api.admin.microsoftonline.com/shdtenantcommunications.svc/GetServiceInformation'
+        Uri         = "$ServiceUrl/GetServiceInformation"
 		Body        = $Body | ConvertTo-Json
     }
 

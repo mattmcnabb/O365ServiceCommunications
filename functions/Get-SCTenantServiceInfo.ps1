@@ -21,7 +21,7 @@ function Get-SCTenantServiceInfo
     $Splat = @{
         ContentType = 'application/json'
         Method      = 'Post'
-        Uri         = 'https://api.admin.microsoftonline.com/shdtenantcommunications.svc/GetServiceInformationForTenantDomains'
+        Uri         = "$ServiceUrl/GetServiceInformationForTenantDomains"
 		Body        = $Body | ConvertTo-Json
     }
 

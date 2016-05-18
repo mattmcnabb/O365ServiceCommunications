@@ -39,7 +39,7 @@ function Get-SCTenantEvent
     $Splat = @{
         ContentType = 'application/json'
         Method      = 'Post'
-        Uri         = 'https://api.admin.microsoftonline.com/shdtenantcommunications.svc/GetEventsForTenantDomains'
+        Uri         = "$ServiceUrl/GetEventsForTenantDomains"
         Body        = $null
     }
 

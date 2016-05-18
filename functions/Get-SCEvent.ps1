@@ -65,7 +65,7 @@ function Get-SCEvent
     $Splat = @{
         ContentType = 'application/json'
         Method      = 'Post'
-        Uri         = 'https://api.admin.microsoftonline.com/shdtenantcommunications.svc/GetEvents'
+        Uri         = "https://office365servicehealthcommunications.cloudapp.net/shdtenantcommunications.svc/GetEvents"
         Body        = $null
     }
 

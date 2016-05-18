@@ -50,7 +50,7 @@ function New-SCSession
     $Splat = @{
         ContentType     = 'application/json'
         Method          = 'Post'
-        Uri             = 'https://api.admin.microsoftonline.com/shdtenantcommunications.svc/Register'
+        Uri             = "$ServiceUrl/Register"
         Body            = $BodyCred
     }
 
