@@ -1,4 +1,4 @@
-$ServiceUrl = 'https://office365servicehealthcommunications.cloudapp.net/shdtenantcommunications.svc'
+$ServiceUrl = 'https://api.admin.microsoftonline.com/shdtenantcommunications.svc'
 
 $SessionTypeName = 'O365ServiceCommunications.Session'
 $EventTypeName   = 'O365ServiceCommunications.Event'
