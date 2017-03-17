@@ -2,12 +2,15 @@
 <Configuration>
 	<ViewDefinitions>
 		<View>
-			<Name>EventTable</Name>
+			<Name>TenantEventTable</Name>
 			<ViewSelectedBy>
-				<TypeName>O365ServiceCommunications.Event</TypeName>
+				<TypeName>O365ServiceCommunications.TenantEvent</TypeName>
 			</ViewSelectedBy>
 			<TableControl>
 				<TableHeaders>
+					<TableColumnHeader>
+						<Label>TenantDomain</Label>
+					</TableColumnHeader>
 					<TableColumnHeader>
 						<Label>StartTime</Label>
 					</TableColumnHeader>
@@ -30,6 +33,9 @@
 				<TableRowEntries>
 					<TableRowEntry>
 						<TableColumnItems>
+							<TableColumnItem>
+								<PropertyName>TenantDomain</PropertyName>
+							</TableColumnItem>
 							<TableColumnItem>
 								<PropertyName>StartTime</PropertyName>
 							</TableColumnItem>
@@ -54,14 +60,17 @@
 			</TableControl>
 		</View>
 		<View>
-			<Name>EventList</Name>
+			<Name>TenantEventList</Name>
 			<ViewSelectedBy>
-				<TypeName>O365ServiceCommunications.Event</TypeName>
+				<TypeName>O365ServiceCommunications.TenantEvent</TypeName>
 			</ViewSelectedBy>
 			<ListControl>
 				<ListEntries>
 					<ListEntry>
 						<ListItems>
+							<ListItem>
+								<PropertyName>TenantDomain</PropertyName>
+							</ListItem>
 							<ListItem>
 								<PropertyName>Title</PropertyName>
 							</ListItem>
@@ -117,9 +126,9 @@
 			</ListControl>
 		</View>
 		<View>
-			<Name>EventWide</Name>
+			<Name>TenantEventWide</Name>
 			<ViewSelectedBy>
-				<TypeName>O365ServiceCommunications.Event</TypeName>
+				<TypeName>O365ServiceCommunications.TenantEvent</TypeName>
 			</ViewSelectedBy>
 			<WideControl>
 				<ColumnNumber>1</ColumnNumber>

@@ -34,6 +34,7 @@ function New-SCSession
     (
         [Parameter(Mandatory=$true)]
         [System.Management.Automation.CredentialAttribute()]
+        [PSCredential]
         $Credential,
 
         [String]

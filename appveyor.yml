@@ -1,0 +1,23 @@
+version: 1.3.{build}
+
+skip_commits:
+  message: /update readme.*/
+
+os: WMF 5
+
+install:
+  - ps: Install-PackageProvider -Name NuGet -Confirm:$false -Force -ErrorAction Stop | Out-Null
+  - ps: Install-Module -Name Pester, PSScriptAnalyzer, PlatyPS -Confirm:$false -Force -ErrorAction SilentlyContinue | Out-Null
+
+build: false
+
+build_script:
+  - ps: . ./build.ps1
+
+deploy_script:
+  - ps: . ./deploy.ps1
+
+environment:
+  PSGallery_Api_Key:
+    secure: 0EePWivW8cgi5NAGuTYlskxb7W07x0xAhIrs5XumYoGibUTOkHhKBvqGhx/mg9h8
+    

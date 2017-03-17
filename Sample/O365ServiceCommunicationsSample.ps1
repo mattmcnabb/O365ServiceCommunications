@@ -1,4 +1,4 @@
-﻿<#
+<#
     .DESCRIPTION
     This sample script demonstrates using the O365ServiceCommunications module to alert on incidents posted in the Office 365 
     Message Center. It gathers information from the Service Communications API and builds custom HTML tables which are then 

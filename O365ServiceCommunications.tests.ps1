@@ -1,9 +1,42 @@
-$ModulePath = Split-Path -Parent $MyInvocation.MyCommand.Path
-$ModuleName = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -Replace ".Tests.ps1"
+param
+(
+    [string]
+    $DocsOutputPath
+)
 
-$ManifestPath   = "$ModulePath\$ModuleName.psd1"
+if ($env:APPVEYOR)
+{
+    $ModuleName = $env:Appveyor_Project_Name
+    $Version = $env:APPVEYOR_BUILD_VERSION
+}
+else
+{
+    $ModuleName = Split-Path $PSScriptRoot -Leaf
+    $Version = "0.1.0"
+}
+
+$ModulePath = Join-Path $PSScriptRoot $ModuleName
+$ManifestPath = Join-Path $ModulePath "$ModuleName.psd1"
 if (Get-Module -Name $ModuleName) { Remove-Module $ModuleName -Force }
-Import-Module $ManifestPath
+Import-Module $ManifestPath -Force
+
+Pester\Describe 'PSScriptAnalyzer' {
+    Import-Module -Name PSScriptAnalyzer -Force
+    Pester\It "passes Invoke-ScriptAnalyzer" {
+        $AnalyzeSplat = @{
+            Path        = $ModulePath
+            ExcludeRule = "PSUseDeclaredVarsMoreThanAssignments"
+            Severity    = "Warning"
+        }
+        Invoke-ScriptAnalyzer @AnalyzeSplat | Should be $null
+    }
+}
+
+Pester\Describe "Docs" {
+    Pester\It "help file exists" {
+        Test-Path (Join-Path $DocsOutputPath "$ModuleName-help.xml") | Should Be $true
+    }
+}
 
 # test the module manifest - exports the right functions, processes the right formats, and is generally correct
 Describe "Manifest" {
