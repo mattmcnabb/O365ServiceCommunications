@@ -11,7 +11,7 @@
     PrivateData = @{
         PSData = @{
             Tags = 'Office365','REST'
-            LicenseUri   = 'https://github.com/mattmcnabb/O365ServiceCommunications/blob/master/O365ServiceCommunications/O365ServiceCommunications/license'
+            LicenseUri   = 'https://github.com/mattmcnabb/O365ServiceCommunications/blob/master/O365ServiceCommunications/license'
             ProjectUri = 'https://github.com/mattmcnabb/O365ServiceCommunications'
             IconUri = ''
             ReleaseNotes = ''
