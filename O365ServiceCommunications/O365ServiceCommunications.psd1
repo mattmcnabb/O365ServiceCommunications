@@ -1,5 +1,5 @@
 ﻿@{
-    RootModule = 'O365ServiceCommunications.psm1'
+    NestedModules = 'O365ServiceCommunications.psm1'
     ModuleVersion = '0.1.0'
     GUID = 'bd4390dc-a8ad-4bce-8d69-f53ccf8e4163'
     Author = 'Matt McNabb'
@@ -11,7 +11,7 @@
     PrivateData = @{
         PSData = @{
             Tags = 'Office365','REST'
-            LicenseUri = 'http://opensource.org/licenses/MIT'
+            LicenseUri   = 'https://github.com/mattmcnabb/O365ServiceCommunications/blob/master/O365ServiceCommunications/O365ServiceCommunications/license'
             ProjectUri = 'https://github.com/mattmcnabb/O365ServiceCommunications'
             IconUri = ''
             ReleaseNotes = ''
