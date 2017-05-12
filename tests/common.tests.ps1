@@ -74,7 +74,7 @@ Pester\Describe "Manifest" {
     }
     
     Pester\It 'has a valid license Uri' {
-        $ManifestHash.PrivateData.Values.LicenseUri | Should Be "https://github.com/mattmcnabb/O365ServiceCommunications/blob/master/O365ServiceCommunications/O365ServiceCommunications/license"
+        $ManifestHash.PrivateData.Values.LicenseUri | Should Be "https://github.com/mattmcnabb/O365ServiceCommunications/blob/master/O365ServiceCommunications/license"
     }
     
     Pester\It 'has a valid project Uri' {
