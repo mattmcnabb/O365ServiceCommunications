@@ -1,8 +1,4 @@
-param
-(
-    [string]
-    $DocsOutputPath
-)
+$ProjectPath = Split-Path $PSScriptRoot
 
 if ($env:APPVEYOR)
 {
@@ -11,93 +7,13 @@ if ($env:APPVEYOR)
 }
 else
 {
-    $ModuleName = Split-Path $PSScriptRoot -Leaf
+    $ModuleName = Split-Path $ProjectPath -Leaf
     $Version = "0.1.0"
 }
 
-$ModulePath = Join-Path $PSScriptRoot $ModuleName
-$ManifestPath = Join-Path $ModulePath "$ModuleName.psd1"
-if (Get-Module -Name $ModuleName) { Remove-Module $ModuleName -Force }
-Import-Module $ManifestPath -Force
+$ModulePath = Join-Path $ProjectPath $ModuleName
+Import-Module $ModulePath -Force
 
-Pester\Describe 'PSScriptAnalyzer' {
-    Import-Module -Name PSScriptAnalyzer -Force
-    Pester\It "passes Invoke-ScriptAnalyzer" {
-        $AnalyzeSplat = @{
-            Path        = $ModulePath
-            ExcludeRule = "PSUseDeclaredVarsMoreThanAssignments"
-            Severity    = "Warning"
-        }
-        Invoke-ScriptAnalyzer @AnalyzeSplat | Should be $null
-    }
-}
-
-Pester\Describe "Docs" {
-    Pester\It "help file exists" {
-        Test-Path (Join-Path $DocsOutputPath "$ModuleName-help.xml") | Should Be $true
-    }
-}
-
-# test the module manifest - exports the right functions, processes the right formats, and is generally correct
-Describe "Manifest" {
-    
-    $ManifestHash = Invoke-Expression (Get-Content $ManifestPath -Raw)
-
-    It "has a valid manifest" {
-        {
-            $null = Test-ModuleManifest -Path $ManifestPath -ErrorAction Stop -WarningAction SilentlyContinue
-        } | Should Not Throw
-    }
-
-    It "has a valid root module" {
-        $ManifestHash.RootModule | Should Be "$ModuleName.psm1"
-    }
-
-    It "has a valid Description" {
-        $ManifestHash.Description | Should Not BeNullOrEmpty
-    }
-
-    It "has a valid guid" {
-        $ManifestHash.Guid | Should Be 'bd4390dc-a8ad-4bce-8d69-f53ccf8e4163'
-    }
-
-    It "has a valid version" {
-        $ManifestHash.ModuleVersion -as [Version] | Should Not BeNullOrEmpty
-    }
-
-    It "has a valid copyright" {
-        $ManifestHash.CopyRight | Should Not BeNullOrEmpty
-    }
-
-    It 'processes all existing format files' {
-        $FormatFiles = Get-ChildItem "$ModulePath\Formats\" -Filter *.ps1xml | Select-Object -ExpandProperty fullname
-        $ExportedFormats = $ManifestHash.FormatsToProcess | foreach {"$ModulePath\$_"}
-        $ExportedFormats | Should Be $FormatFiles
-    }
-
-    It 'exports all public functions' {
-        $FunctionFiles = Get-ChildItem "$ModulePath\functions" -Filter *.ps1 | Select-Object -ExpandProperty basename
-        $FunctionNames = $FunctionFiles
-        $ManifestHash.FunctionsToExport | Should Be $FunctionNames
-    }
-    
-    It 'has a valid license Uri' {
-        $ManifestHash.PrivateData.Values.LicenseUri | Should Be 'http://opensource.org/licenses/MIT'
-    }
-    
-    It 'has a valid project Uri' {
-        $ManifestHash.PrivateData.Values.ProjectUri | Should Be 'https://github.com/mattmcnabb/O365ServiceCommunications'
-    }
-    
-    It "gallery tags don't contain spaces" {
-        foreach ($Tag in $ManifestHash.PrivateData.Values.tags)
-        {
-            $Tag -notmatch '\s' | Should Be $true
-        }
-    }
-}
-
-# test the functions inside the module
 Describe 'helper functions' {
     InModuleScope O365ServiceCommunications {
         Context 'New-CustomObject' {

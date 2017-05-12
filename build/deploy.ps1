@@ -4,3 +4,4 @@ if ($env:APPVEYOR_REPO_COMMIT_MESSAGE -match "^!Deploy")
     Import-Module PowerShellGet -Force
     Publish-Module -Path $ModulePath -NuGetApiKey ($env:PSGallery_Api_Key) -Confirm:$false
 }
+
