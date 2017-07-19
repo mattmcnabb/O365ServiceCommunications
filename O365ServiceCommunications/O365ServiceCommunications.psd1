@@ -14,7 +14,9 @@
             LicenseUri   = "https://github.com/mattmcnabb/O365ServiceCommunications/blob/master/O365ServiceCommunications/license"
             ProjectUri = "https://github.com/mattmcnabb/O365ServiceCommunications"
             IconUri = ""
-            ReleaseNotes = ""
+            ReleaseNotes = @"
+Fix issue with partner commands - thanks to PowerShellNinja for that one!
+"@
         }
     }
 }
