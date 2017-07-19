@@ -123,7 +123,7 @@ Describe 'public functions' {
         Context 'Get-SCTenantEvent' {
             BeforeEach {
                 Mock New-SCSession { [pscustomobject]@{Cookie = 'qwertyuiopasdfghjkl;'; Locale = 'en-US'} | New-CustomObject -TypeName $SessionTypeName }
-                Mock Invoke-RestMethod {[PSCustomObject]@{ Events = 'TenantEventTest' }}
+                Mock Invoke-RestMethod {[PSCustomObject]@{ EventsByTenantDomain = [PSCustomObject]@{Value = 'TenantEventTest'}}}
             }
         
             It 'outputs a tenant event object' {
