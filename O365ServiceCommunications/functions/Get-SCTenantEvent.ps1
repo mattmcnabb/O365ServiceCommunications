@@ -36,6 +36,7 @@ function Get-SCTenantEvent
         pastDays            = $PastDays
     }
 
+    #$ServiceUrl being loaded from /helpers/Config.ps1
     $Splat = @{
         ContentType = 'application/json'
         Method      = 'Post'
@@ -51,10 +52,10 @@ function Get-SCTenantEvent
 		foreach ($EventType in $EventTypes)
 		{
 			$Body.preferredEventTypes = @($EventCodes.$EventType)
-			$Splat.Body = $Body | ConvertTo-Json
-
-			Invoke-RestMethod @Splat | Select-Object -ExpandProperty Events |
-			New-CustomObject -Typename $TenantEventTypeName -ExtraProperties @{EventType = $EventType; TenantDomain = $Domain}
+            $Splat.Body = $Body | ConvertTo-Json
+            
+			Invoke-RestMethod @splat | Select-Object -ExpandProperty EventsByTenantDomain | Select-Object -ExpandProperty Value |
+            New-CustomObject -Typename $TenantEventTypeName -ExtraProperties @{EventType = $EventType; TenantDomain = $Domain}
 		}
 	}
 }
