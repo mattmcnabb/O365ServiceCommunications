@@ -1,4 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/dktthvk43gwicc7l?svg=true)](https://ci.appveyor.com/project/mattmcnabb/Canvas)
+[![Build status](https://ci.appveyor.com/api/projects/status/dktthvk43gwicc7l?svg=true)](https://ci.appveyor.com/project/mattmcnabb/O365ServiceCommunications)
 
 # O365ServiceCommunications
 A Powershell module for retrieving data from the Office 365 Service Communications API. This could be used for reporting the health status of your tenant over time, or for alerting when new incidents are posted.
