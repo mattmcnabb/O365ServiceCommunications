@@ -15,7 +15,7 @@
             ProjectUri = "https://github.com/mattmcnabb/O365ServiceCommunications"
             IconUri = ""
             ReleaseNotes = @"
-Fix issue with partner commands - thanks to PowerShellNinja for that one!
+- Fix issue with partner commands - thanks to PowerShellNinja for that one!
 "@
         }
     }
