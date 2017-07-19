@@ -12,10 +12,12 @@ function Get-SCTenantServiceInfo
 		$Domains
     )
 
+    #Documentation says: lastCookie, locale, companydomains. This is wrong.
+    #Working JSON Body: lastCookie, locale, tenantDomains
     $Body = @{
         lastCookie = $SCSession.Cookie
         locale     = $SCSession.Locale
-		companyDomains = @($Domains)
+		tenantDomains = @($Domains)
     }
 
     $Splat = @{
@@ -25,7 +27,7 @@ function Get-SCTenantServiceInfo
 		Body        = $Body | ConvertTo-Json
     }
 
-	Invoke-RestMethod @Splat | foreach {
+	Invoke-RestMethod @Splat | Foreach-Object {
 		$_ | New-CustomObject -TypeName $TenantServiceInfoTypeName
 	}
 }
