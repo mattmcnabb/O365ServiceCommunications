@@ -4,7 +4,7 @@
 A Powershell module for retrieving data from the Office 365 Service Communications API. This could be used for reporting the health status of your tenant over time, or for alerting when new incidents are posted.
 
 ### Getting Started
-You'll need to be a global administrator for an Office 365 Tenant, or a delegated partner for an Office 365 tenant.
+You'll need to be a global administrator for an Office 365 Tenant, or a delegated partner for an Office 365 tenant. To install the module from the PowerShell Gallery, run `Install-Module O365ServiceCommunications`.
 
 ![](images/GettingStarted.png)
 
