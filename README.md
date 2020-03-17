@@ -1,3 +1,7 @@
+# Pardon Our Dust
+This PowerShell module is no longer working since the original Service Communications API has been deprecated. I'm currently working on a new version of the module that will leverage the V2 API which will hopefully be available for at least a year or two :wink:
+
+
 [![Build status](https://ci.appveyor.com/api/projects/status/iy00f88qcck9xcor?svg=true)](https://ci.appveyor.com/project/mattmcnabb/o365servicecommunications)
 
 # O365ServiceCommunications
