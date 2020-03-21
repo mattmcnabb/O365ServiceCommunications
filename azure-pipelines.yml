@@ -31,6 +31,9 @@ jobs:
     matrix:
       windows:
         imageName: 'windows-latest'
+  pool:
+    vmImage: $(imageName)
+    
   steps:
   - task: PowerShell@2
     inputs:
