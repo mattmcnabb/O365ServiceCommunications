@@ -9,8 +9,6 @@ jobs:
         imageName: 'ubuntu-latest'
       mac:
         imageName: 'macos-latest'
-      windows:
-        imageName: 'windows-latest'
 
   pool:
     vmImage: $(imageName)
@@ -24,3 +22,24 @@ jobs:
   - task: PowerShell@2
     inputs:
       filePath: '$(System.DefaultWorkingDirectory)/build.ps1'
+
+- job: windows
+  dependsOn: xplat
+  condition: succeeded()
+
+  strategy:
+    matrix:
+      windows:
+        imageName: 'windows-latest'
+  steps:
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: 'Install-Module ModuleBuilder -Force -SkipPublisherCheck'
+
+  - task: PowerShell@2
+    inputs:
+      filePath: '$(System.DefaultWorkingDirectory)/build.ps1'
+
+  - publish: $(System.DefaultWorkingDirectory)/Output
+    artifact: O365ServiceCommunications
