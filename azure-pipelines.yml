@@ -1,0 +1,33 @@
+trigger:
+- master
+
+jobs:
+- job: xplat
+  strategy:
+    matrix:
+      linux:
+        imageName: 'ubuntu-latest'
+      mac:
+        imageName: 'macos-latest'
+
+  pool:
+    vmImage: $(imageName)
+
+  steps:
+  - pwsh: |
+      Install-Module ModuleBuilder -Force -SkipPublisherCheck
+      & $(System.DefaultWorkingDirectory)\Build.ps1
+    displayName: Build project
+
+- job: windows
+  dependsOn: xplat
+  condition: succeeded()
+  
+  pool:
+    vmImage: 'windows-latest'
+  
+  steps:
+  - pwsh: |
+      Install-Module ModuleBuilder -Force -SkipPublisherCheck
+      & $(System.DefaultWorkingDirectory)\Build.ps1
+    displayName: Build project
