@@ -9,6 +9,8 @@ jobs:
         imageName: 'ubuntu-latest'
       mac:
         imageName: 'macos-latest'
+      windows:
+        imageName: 'windows-latest'
 
   pool:
     vmImage: $(imageName)
@@ -16,18 +18,5 @@ jobs:
   steps:
   - pwsh: |
       Install-Module ModuleBuilder -Force -SkipPublisherCheck
-      & $(System.DefaultWorkingDirectory)\Build.ps1
-    displayName: Build project
-
-- job: windows
-  dependsOn: xplat
-  condition: succeeded()
-  
-  pool:
-    vmImage: 'windows-latest'
-  
-  steps:
-  - pwsh: |
-      Install-Module ModuleBuilder -Force -SkipPublisherCheck
-      & $(System.DefaultWorkingDirectory)\Build.ps1
+      & "$(System.DefaultWorkingDirectory)/Build.ps1"
     displayName: Build project
