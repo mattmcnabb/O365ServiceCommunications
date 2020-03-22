@@ -2,11 +2,13 @@ function Test-SCConnection
 {
     if (!$Script:SCConnection)
     {
-        throw
+        return $false
     }
 
     if ($Script:SCConnection.Expires -lt [DateTimeOffset]::Now)
     {
-        throw
+        return $false
     }
+
+    $true
 }

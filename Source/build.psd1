@@ -1,6 +1,6 @@
 @{
     Path = ".\O365ServiceCommunications.psd1"
-    #CopyDirectories = "Formats", "en-US"
+    CopyDirectories = "Formats"
     OutputDirectory          = "../Output"
-    VersionedOutputDirectory = $true
+    VersionedOutputDirectory = $false
 }
