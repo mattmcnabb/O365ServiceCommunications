@@ -13,7 +13,7 @@
     FunctionsToExport = @()
     PrivateData       = @{
         PSData = @{
-            Tags         = "Office365", "REST", "Service Health", "Service Communications"
+            Tags         = "Office365", "REST", "ServiceHealth", "ServiceCommunications"
             LicenseUri   = "https://github.com/mattmcnabb/O365ServiceCommunications/blob/master/O365ServiceCommunications/license"
             ProjectUri   = "https://github.com/mattmcnabb/O365ServiceCommunications"
             Prerelease   = '-alpha'
