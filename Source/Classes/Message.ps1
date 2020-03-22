@@ -9,7 +9,6 @@ class O365ServiceCommunications_MessageText {
 }
 
 class O365ServiceCommunications_Message {
-    [string] ${@odata.type}
     [string[]] $ActionType
     [O365ServiceCommunications_MessageAdditionalDetails[]] $AdditionalDetails
     [long] $AffectedTenantCount
@@ -33,8 +32,14 @@ class O365ServiceCommunications_Message {
     [string] $UserFunctionalImpact
     [string] $Workload
     [string] $WorkloadDisplayName
+}
 
-     # unique to message center messages?
+class O365ServiceCommunications_IncidentMessage : O365ServiceCommunications_Message {
+
+}
+
+class O365ServiceCommunications_MessageCenterMessage : O365ServiceCommunications_Message {
+    hidden [string] ${@odata.type}
     [Nullable[DateTimeOffset]] $ActionRequiredByDate
     [long] $AnnouncementId
     [string] $AppliesTo

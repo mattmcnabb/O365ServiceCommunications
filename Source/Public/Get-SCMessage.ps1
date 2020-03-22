@@ -1,19 +1,24 @@
 function Get-SCMessage {
-    [CmdletBinding()]
+    [CmdletBinding(DefaultParameterSetName = "Filter")]
     [OutputType([O365ServiceCommunications_Message])]
     param (
+        [Parameter(ParameterSetName = "Filter")]
         [string]
         $Workload,
 
+        [Parameter(ParameterSetName = "Filter")]
         [DateTimeOffset]
         $Start,
 
+        [Parameter(ParameterSetName = "Filter")]
         [DateTimeOffset]
         $End,
 
+        [Parameter(ParameterSetName = "Filter")]
         [string]
         $MessageType,
 
+        [Parameter(Mandatory, ParameterSetName = "Id")]
         [string]
         $Id
     )
@@ -31,34 +36,49 @@ function Get-SCMessage {
     $Splat = @{
         Headers = $Script:SCConnection.AuthHeader
         Uri     = "$($Script:SCConnection.ApiBase)/Messages"
-        Body = @{}
+        Body    = @{}
     }
 
-    $Filters = @(
-        if ($PSBoundParameters.ContainsKey("Workload")) {
-            "Workload eq '$Workload'"
-        }
-
-        if ($PSBoundParameters.ContainsKey("Start")) {
-            $Splat["Body"]['$filter'] = "StartTime eq '$Start'"
-        }
-
-        if ($PSBoundParameters.ContainsKey("End")) {
-            $Splat["Body"]['$filter'] = "EndTime eq '$End'"
-        }
-
-        if ($PSBoundParameters.ContainsKey("MessageType")) {
-            $Splat["Body"]['$filter'] = "MessageType eq Microsoft.Office365ServiceComms.ExposedContracts.MessageType'$MessageType'"
-        }
-
-        if ($PSBoundParameters.ContainsKey("Id")) {
+    switch ($PSCmdlet.ParameterSetName)
+    {
+        "Id" {
             $Splat["Body"]['$filter'] = "Id eq '$Id'"
         }
-    )
-    
-    if ($Filters) {
-        $Splat["Body"]["$filter"] = $Filters -join " and "
+
+        "Filter" {
+            $Filters = @(
+                if ($PSBoundParameters.ContainsKey("Workload")) {
+                    "Workload eq '$Workload'"
+                }
+
+                if ($PSBoundParameters.ContainsKey("Start")) {
+                    "StartTime ge $($Start.UTCDateTime.ToString("o"))"
+                }
+
+                if ($PSBoundParameters.ContainsKey("End")) {
+                    "EndTime le $($End.UTCDateTime.ToString("o"))"
+                }
+
+                if ($PSBoundParameters.ContainsKey("MessageType")) {
+                    "MessageType eq Microsoft.Office365ServiceComms.ExposedContracts.MessageType'$MessageType'"
+                }
+            )
+
+            if ($Filters) {
+                $Splat["Body"]['$filter'] = $Filters -join " and "
+            }
+        }
     }
-    
-    [O365ServiceCommunications_Message[]](Invoke-RestMethod @Splat).Value
+
+    (Invoke-RestMethod @Splat).Value | ForEach-Object {
+        switch ($_) {
+            { $_.MessageType -eq "Incident" } {
+                [O365ServiceCommunications_IncidentMessage]$_
+            }
+
+            { $_.MessageType -eq "MessageCenter" } {
+                [O365ServiceCommunications_MessageCenterMessage]$_
+            }
+        }
+    }
 }
