@@ -17,7 +17,7 @@ jobs:
   - task: PowerShell@2
     inputs:
       targetType: 'inline'
-      script: 'Install-Module ModuleBuilder -Force -SkipPublisherCheck'
+      script: 'Install-Module ModuleBuilder, PlatyPS -Force -SkipPublisherCheck'
 
   - task: PowerShell@2
     inputs:
@@ -38,7 +38,7 @@ jobs:
   - task: PowerShell@2
     inputs:
       targetType: 'inline'
-      script: 'Install-Module ModuleBuilder -Force -SkipPublisherCheck'
+      script: 'Install-Module ModuleBuilder, PlatyPS -Force -SkipPublisherCheck'
 
   - task: PowerShell@2
     inputs:
