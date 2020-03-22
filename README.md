@@ -44,6 +44,8 @@ Any contributions to the project are welcome and could come in the form of issue
 > Note: I'd really appreciate some additional testers, both for administrators of an Office 365 tenant and partners who provide support for several client tenants. Please try the preview module out and submit issues for any problems you encounter. Thanks!
 
 ### Related Links
-[API Reference](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-service-communications-api-reference)
+[Service Communications API V2 Reference](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-service-communications-api-reference)
 
-[V1 Blog Post](https://mattmcnabb.github.io/Office-365-Health-Monitoring-With-PowerShell)
+[My Blog Post on V1 Module](https://mattmcnabb.github.io/Office-365-Health-Monitoring-With-PowerShell)
+
+[V1 Featured in a Petri Blog Post](https://www.petri.com/office-365-connector-incoming-webhook)
