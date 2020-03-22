@@ -6,10 +6,13 @@ function Get-SCService {
     )
     
     try {
-        Test-SCConnection
+        if (!(Test-SCConnection)) {
+            Connect-O365ServiceCommunications $Script:SCConnection.ClientID $Script:SCConnection.ClientSecret $Script:SCConnection.TenantID
+        }
     }
     catch {
-        Connect-O365ServiceCommunications
+        throw "No viable connection was found. Please run 'Connect-O365ServiceCommunications before running any other commands.'"
+
     }
 
     $Uri = "$($Script:SCConnection.ApiBase)/Services"

@@ -1,5 +1,8 @@
 class O365ServiceCommunications_Connection {
-    [hashtable] $AuthHeader
+    hidden [string] $ClientID
+    hidden [string] $ClientSecret
+    [string] $TenantID
+    hidden [hashtable] $AuthHeader
     [string] $ApiBase
     [DateTimeOffset] $Expires
 }
