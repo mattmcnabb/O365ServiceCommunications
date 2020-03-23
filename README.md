@@ -48,4 +48,6 @@ Any contributions to the project are welcome and could come in the form of issue
 
 [My Blog Post on V1 Module](https://mattmcnabb.github.io/Office-365-Health-Monitoring-With-PowerShell)
 
+[Guest blog on QuadroTech](https://www.quadrotech-it.com/blog/guest-blog-office-365-health-monitoring-with-powershell/)
+
 [V1 Featured in a Petri Blog Post](https://www.petri.com/office-365-connector-incoming-webhook)
