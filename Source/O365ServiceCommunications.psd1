@@ -6,6 +6,7 @@
     Copyright         = "(c) 2020 . All rights reserved."
     Description       = "Gathers data regarding Office 365 Service Health from the Office 365 Service Communications API"
     PowerShellVersion = "5.1"
+    CompatiblePSEditions = "Desktop","Core"
     FormatsToProcess  = @(
         "Formats/Service.format.ps1xml"
         "Formats/Status.format.ps1xml"
