@@ -28,6 +28,7 @@ class O365ServiceCommunications_Message {
     [string] $Severity
     [datetime] $StartTime
     [string] $Status
+    [Object[]] $TenantParams
     [string] $Title
     [string] $UserFunctionalImpact
     [string] $Workload
