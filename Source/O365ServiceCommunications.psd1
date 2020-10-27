@@ -1,6 +1,6 @@
 @{
     NestedModules     = "O365ServiceCommunications.psm1"
-    ModuleVersion     = "2.0.0"
+    ModuleVersion     = "2.0.1"
     GUID              = "bd4390dc-a8ad-4bce-8d69-f53ccf8e4163"
     Author            = "Matt McNabb"
     Copyright         = "(c) 2020 . All rights reserved."
@@ -18,7 +18,8 @@
             ProjectUri   = "https://github.com/mattmcnabb/O365ServiceCommunications"
             Prerelease   = '-alpha'
             ReleaseNotes = @"
-- initial support for the Service Communications API V2
+            - Issue 19 New tenantparams property returned from API causing errors on object instantiation - fixed
+
 "@
         }
     }
