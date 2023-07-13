@@ -1,3 +1,5 @@
+## Update 7/12/2023: This project has been superseded by Microsoft's project found [here](https://github.com/microsoftgraph/msgraph-sdk-powershell) and is now officially deprecated. There will no longer be any updates to this project. It was fun while it lasted!
+
 # <img src="Images/logo.png" width="48"> O365ServiceCommunications V2 (Preview)
 
 A Powershell module for retrieving data from the Office 365 Service Communications API. This could be used for reporting the health status of your tenant over time, or for alerting when new incidents are posted.
